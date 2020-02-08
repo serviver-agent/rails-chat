@@ -2,11 +2,8 @@ require:
   - rubocop-performance
   - rubocop-rails
 
-Rails:
-  Enabled: true
-
 AllCops:
-  TargetRubyVersion: 2.7.0
+  TargetRubyVersion: 2.5
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
   # to ignore them, so only the ones explicitly set in this file are enabled.
   DisabledByDefault: true
@@ -19,8 +16,6 @@ AllCops:
     - 'actionmailbox/test/dummy/**/*'
     - 'actiontext/test/dummy/**/*'
     - '**/node_modules/**/*'
-    - 'bin/*'
-    - 'db/schema.rb'
 
 Performance:
   Exclude:
@@ -39,9 +34,6 @@ Rails/RefuteMethods:
 # Prefer &&/|| over and/or.
 Style/AndOr:
   Enabled: true
-
-Style/AsciiComments:
-  Enabled: false
 
 # Align `when` with `case`.
 Layout/CaseIndentation:
@@ -153,8 +145,6 @@ Style/FrozenStringLiteralComment:
 Style/RedundantFreeze:
   Enabled: true
 
-
-
 # Use `foo {}` not `foo{}`.
 Layout/SpaceBeforeBlockBraces:
   Enabled: true
@@ -233,24 +223,6 @@ Style/RedundantReturn:
 Style/Semicolon:
   Enabled: true
   AllowAsExpressionSeparator: true
-
-Style/IndentationConsistency:
-  EnforcedStyle: rails
-
-Style/EmptyLines:
-  Enabled: true
-
-Style/EmptyLinesAroundClassBody:
-  Enabled: true
-
-Style/EmptyLinesAroundModuleBody:
-  Enabled: true
-
-Style/EmptyLinesAroundMethodBody:
-  Enabled: true
-
-Style/EmptyLinesAroundBlockBody:
-  Enabled: true
 
 # Prefer Foo.method over Foo::method
 Style/ColonMethodCall:
