@@ -1,0 +1,76 @@
+version: 2
+jobs:
+  build:
+    parallelism: 3
+    docker:
+      - image: circleci/ruby:2.7.0
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          PGHOST: 127.0.0.1
+          PGUSER: circleci-demo-ruby
+          RAILS_ENV: test
+
+      - image: circleci/postgres:10.1
+        environment:
+          POSTGRES_USER: "postgres"
+          # POSTGRES_DB: "myapp_development"
+          POSTGRES_PASSWORD: "password"
+    steps:
+      - checkout
+
+      - run:
+          name: Bundler を指定
+          command: bundle -v
+
+
+      - restore_cache:
+          keys:
+            - rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - rails-demo-bundle-v2-
+
+      - run:
+          name: bundle install
+          command: bundle check || bundle install
+
+
+      - save_cache:
+          key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - restore_cache:
+          keys:
+            - rails-demo-yarn-{{ checksum "yarn.lock" }}
+            - rails-demo-yarn-
+
+      - run:
+          name: Yarn install
+          command: sudo curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && sudo apt-get install -y nodejs yarn
+
+      - save_cache:
+          key: rails-demo-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      # - run:
+      #     name: Database setup
+      #     command: bin/rails db:schema:load --trace
+
+      - run:
+          name: Run rspec in parallel
+          command: |
+            bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+
+      - store_test_results:
+          path: test_results
