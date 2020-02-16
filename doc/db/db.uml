@@ -1,0 +1,44 @@
+@startuml
+entity users {
+    + id[PK]: integer <<generated>>
+    --
+    name: varchar(255)
+    room_id: integer
+    created_at: timestamp  <<generated>>
+    updated_at: timestamp  <<generated>>
+}
+
+entity room_users {
+    + id[PK]: integer <<generated>>
+    --
+    user_id: integer
+    room_id: integer
+    created_at:  timestamp <<generated>>
+    updated_at:  timestamp <<generated>>
+}
+
+entity rooms {
+    + id[PK]: integer <<generated>>
+    --
+    name: varchar(255)
+    user_id: integer
+    created_at:  timestamp <<generated>>
+    updated_at:  timestamp <<generated>>
+}
+
+entity messages {
+    + id[PK]: integer <<generated>>
+    --
+    room_id: integer[FK]
+    user_id: integer[FK]
+    message: varchar(1024)
+        name: varchar(255)
+    created_at:  timestamp <<generated>>
+    updated_at:  timestamp <<generated>>
+}
+
+rooms ||--o{ messages
+users ||--o{ messages
+users }o--|| room_users
+room_users ||--|{ rooms
+@enduml
