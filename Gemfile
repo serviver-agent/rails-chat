@@ -7,8 +7,8 @@ ruby "2.7.0"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.0.2", ">= 6.0.2.1"
-# Use mysql as the database for Active Record
-gem "mysql2", ">= 0.4.4"
+# Use postgresql as the database for Active Record
+gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
 gem "puma", "~> 4.1"
 # Use SCSS for stylesheets
@@ -33,10 +33,9 @@ gem "bootsnap", ">= 1.4.2", require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
-  gem "rspec-rails"
-  gem "rubocop"
-  gem "rubocop-performance"
-  gem "rubocop-rails"
+  gem "rspec", "~> 3.9"
+  gem "rubocop-performance", "~> 1.5", ">= 1.5.2"
+  gem "rubocop-rails", "~> 2.4", ">= 2.4.2"
 end
 
 group :development do
