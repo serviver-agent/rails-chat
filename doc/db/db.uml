@@ -1,38 +1,37 @@
 @startuml
 entity users {
-    + id[PK]: integer <<generated>>
+    + id[PK]: bigint <<generated>>
     --
     name: varchar(255)
-    room_id: integer
+    room_id: bigint
     created_at: timestamp  <<generated>>
     updated_at: timestamp  <<generated>>
 }
 
 entity room_users {
-    + id[PK]: integer <<generated>>
+    + id[PK]: bigint <<generated>>
     --
-    user_id: integer
-    room_id: integer
+    user_id: bigint[FK]
+    room_id: bigint[FK]
     created_at:  timestamp <<generated>>
     updated_at:  timestamp <<generated>>
 }
 
 entity rooms {
-    + id[PK]: integer <<generated>>
+    + id[PK]: bigint <<generated>>
     --
     name: varchar(255)
-    user_id: integer
+    user_id: bigint
     created_at:  timestamp <<generated>>
     updated_at:  timestamp <<generated>>
 }
 
 entity messages {
-    + id[PK]: integer <<generated>>
+    + id[PK]: bigint <<generated>>
     --
-    room_id: integer[FK]
-    user_id: integer[FK]
-    message: varchar(1024)
-        name: varchar(255)
+    room_id: bigint[FK]
+    user_id: bigint[FK]
+    message: text
     created_at:  timestamp <<generated>>
     updated_at:  timestamp <<generated>>
 }
