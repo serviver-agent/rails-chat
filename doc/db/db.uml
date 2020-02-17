@@ -3,7 +3,6 @@ entity users {
     + id[PK]: bigint <<generated>>
     --
     name: varchar(255)
-    room_id: bigint
     created_at: timestamp  <<generated>>
     updated_at: timestamp  <<generated>>
 }
