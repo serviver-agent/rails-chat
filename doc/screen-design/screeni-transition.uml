@@ -1,0 +1,33 @@
+@startuml
+title 画面遷移図
+
+state "トップ画面" as State6
+note left of State6 : ログイン済のユーザを想定
+State6: 実際はRoom一覧画面と同一ページ
+state "Room一覧画面" as State1
+state "新規Room作成画面" as State2
+state "参加User指定画面" as State3
+state "Room画面" as State5
+state "Room編集画面" as State7
+state "プロフィール編集画面" as State8
+state "Room削除画面" as State9
+
+
+[*] --> State6
+State6 -d-> State1
+State6 -d-> State7: Roomを編集
+State6 -> State8
+State6 -d-> State2: Roomを作成
+State2 -> State3: RoomNameを編集
+State3 -d-> State5: 参加Userを設定
+State1 -d-> State5: Roomを指定
+State7 -d-> State3: RoomNameを編集
+State7 -> State9
+State9 -> State6
+State5 -> State5: Messageを送信
+State5 -> State5: Messageを編集/削除
+State8 -> State6: 自身のUserNameを編集
+State8 -> [*]: 自身のUserを削除
+State5 -> State6
+
+@enduml
