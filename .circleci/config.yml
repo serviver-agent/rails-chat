@@ -58,7 +58,7 @@ jobs:
       - store_test_results:
           path: test_results
 
-  bubocop:
+  rubocop:
     docker:
       - image: circleci/ruby:2.7.0
     steps:
@@ -99,5 +99,5 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - bubocop
+      - rubocop
       - proto-lint

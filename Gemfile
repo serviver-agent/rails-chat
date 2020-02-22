@@ -25,6 +25,10 @@ gem "jbuilder", "~> 2.7"
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+# Use grpc
+gem "grpc-tools", "~> 1.27"
+# gem 'grpc-tools', '~> 1.27'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
 
