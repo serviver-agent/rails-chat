@@ -1,0 +1,154 @@
+syntax = "proto3";
+
+package serviveragent.railschat.com.protobuf.proto;
+
+
+service RoomService {
+  rpc CreateRoom (CreateRoomRequest) returns (CreateRoomResponse);
+
+  rpc UpdateRoom (UpdateRoomRequest) returns (UpdateRoomResponse);
+
+  rpc UpdateUser (UpdateRoomUserRequest) returns (UpdateRoomUserResponse);
+
+  rpc List (ListRoomRequest) returns (ListRoomResponse);
+
+  rpc Delete (DeleteRoomRequest) returns (DeleteRoomResponse);
+}
+
+service UserService {
+  //create
+  //後で考える
+
+  rpc Update (UpdateUserRequest) returns (UpdateUserResponse);
+
+  //todo: streamのAPIも作る
+  rpc List (ListUserRequest) returns (ListUserResponse);
+
+  rpc Delete (DeleteUserRequest) returns (DeleteUserResponse);
+}
+
+service MessageService {
+  rpc Create (CreateMessageRequest) returns (CreateMessageResponse);
+
+  rpc Update (UpdateMessageRequest) returns (UpdateMessageResponse);
+
+  rpc List (ListMessageRequest) returns (ListMessageResponse);
+
+  rpc Delete (DeleteMessageRequest) returns (DeleteMessageResponse);
+}
+
+
+message CreateRoomRequest {
+  int32 user_id = 1;
+  string room_name = 2;
+}
+
+message CreateRoomResponse {
+  int32 room_id = 1;
+}
+
+
+message UpdateRoomRequest {
+  Room room = 1;
+}
+
+message UpdateRoomResponse {
+  int32 room_id = 1;
+}
+
+message UpdateRoomUserRequest {
+  int32 room_id = 1;
+  int32 user_id = 2;
+  repeated int32 user_ids = 3;
+}
+
+message UpdateRoomUserResponse {
+}
+
+message ListRoomRequest {
+  int32 user_id = 1;
+}
+
+message ListRoomResponse {
+  repeated Room rooms = 1;
+}
+
+message Room {
+  int32 room_id = 1;
+  int32 user_id = 2;
+  string room_name = 3;
+}
+
+message DeleteRoomRequest {
+  int32 room_id = 1;
+  int32 user_id = 2;
+}
+
+message DeleteRoomResponse {
+}
+
+message UpdateUserRequest {
+  User user = 1;
+}
+
+message User {
+  int32 user_id = 1;
+  string user_name = 2;
+}
+
+message UpdateUserResponse {
+}
+
+message ListUserRequest {
+  repeated User users = 1;
+}
+
+message ListUserResponse {
+}
+
+message DeleteUserRequest {
+  int32 user_id = 1;
+}
+
+message DeleteUserResponse {
+}
+
+message CreateMessageRequest {
+  int32 user_id = 1;
+  int32 room_id = 2;
+  string message = 3;
+}
+
+message CreateMessageResponse {
+}
+
+message UpdateMessageRequest {
+  int32 message_id = 1;
+  int32 user_id = 2;
+  string message = 3;
+}
+
+message UpdateMessageResponse {
+}
+
+message ListMessageRequest {
+  int32 room_id = 1;
+}
+
+message ListMessageResponse {
+  repeated Message messages = 1;
+}
+
+message Message {
+  int32 message_id = 1;
+  int32 user_id = 2;
+  string message = 3;
+}
+
+message DeleteMessageRequest {
+  int32 message_id = 1;
+  int32 user_id = 2;
+}
+
+message DeleteMessageResponse {
+}
