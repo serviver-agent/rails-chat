@@ -102,7 +102,7 @@ message UpdateUserRequest {
   User user = 1;
 }
 
-massage User {
+message User {
   int32 user_id = 1;
   string user_name = 2;
 }

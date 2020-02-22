@@ -1,12 +1,12 @@
 version: 2
 jobs:
   build:
-    parallelism: 3
+    # parallelism: 3
     docker:
       - image: circleci/ruby:2.7.0
         environment:
-          BUNDLE_JOBS: 3
-          BUNDLE_RETRY: 3
+          BUNDLE_JOBS: "3"
+          BUNDLE_RETRY: "3"
           BUNDLE_PATH: vendor/bundle
           PGHOST: 127.0.0.1
           PGUSER: circleci-demo-ruby
@@ -24,7 +24,6 @@ jobs:
           name: Bundler を指定
           command: bundle -v
 
-
       - restore_cache:
           keys:
             - rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
@@ -34,12 +33,10 @@ jobs:
           name: bundle install
           command: bundle check || bundle install
 
-
       - save_cache:
           key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-
 
       - run:
           name: Wait for DB
@@ -62,6 +59,26 @@ jobs:
       #                         --format progress \
       #                         $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
-
       - store_test_results:
           path: test_results
+
+  proto-lint:
+    docker:
+      - image: circleci/golang:1.11.4
+        environment:
+          GO111MODULE: "on"
+    steps:
+      - checkout
+      - run:
+          name: Enforce Protocol Buffer style and conventions.
+          command: |
+            cd protobuf/
+            go get -u -v github.com/yoheimuta/protolint/cmd/pl
+            pl lint .
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - proto-lint
