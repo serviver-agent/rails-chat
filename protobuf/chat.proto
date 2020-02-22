@@ -1,53 +1,42 @@
 syntax = "proto3";
 
-package serviver-agent.rails-chat.com.protobuf.proto;
+package serviveragent.railschat.com.protobuf.proto;
+
 
 service RoomService {
-  rpc CreateRoom (CreateRoomRequest) return (CreateRoomResponse) {
-  }
+  rpc CreateRoom (CreateRoomRequest) returns (CreateRoomResponse);
 
-  rpc UpdateRoom (UpdateRoomRequest) return (UpdateRoomResponse) {
-  }
+  rpc UpdateRoom (UpdateRoomRequest) returns (UpdateRoomResponse);
 
-  rpm UpdateJoinUser(UpdateRoomJoinUserRequest) return (UpdateRoomJoinUserResponse) {
+  rpc UpdateUser (UpdateRoomUserRequest) returns (UpdateRoomUserResponse);
 
-  }
+  rpc List (ListRoomRequest) returns (ListRoomResponse);
 
-  rpc List (ListRoomRequest) return (ListRoomResponse) {
-  }
-
-  rpc Delete (DeleteRoomRequest) return (DeleteRoomResponse) {
-  }
+  rpc Delete (DeleteRoomRequest) returns (DeleteRoomResponse);
 }
 
 service UserService {
   //create
   //後で考える
 
-  rpc Update (UpdateUserRequest) return (UpdateUserResponse) {
-  }
+  rpc Update (UpdateUserRequest) returns (UpdateUserResponse);
 
   //todo: streamのAPIも作る
-  rpc List (ListUserRequest) return (ListUserResponse) {
-  }
+  rpc List (ListUserRequest) returns (ListUserResponse);
 
-  rpc Delete (DeleteUserRequest) return (DeleteUserResponse) {
-  }
+  rpc Delete (DeleteUserRequest) returns (DeleteUserResponse);
 }
 
 service MessageService {
-  rpc Create (CreateMessageRequest) return (CreateMessageResponse) {
-  }
+  rpc Create (CreateMessageRequest) returns (CreateMessageResponse);
 
-  rpc Update (UpdateMessageRequest) return (UpdateMessageResponse) {
-  }
+  rpc Update (UpdateMessageRequest) returns (UpdateMessageResponse);
 
-  rpc List (ListMessageRequest) return (ListMessageResponse) {
-  }
+  rpc List (ListMessageRequest) returns (ListMessageResponse);
 
-  rpc Delete (DeleteMessageRequest) return (DeleteMessageResponse) {
-  }
+  rpc Delete (DeleteMessageRequest) returns (DeleteMessageResponse);
 }
+
 
 message CreateRoomRequest {
   int32 user_id = 1;
@@ -67,13 +56,13 @@ message UpdateRoomResponse {
   int32 room_id = 1;
 }
 
-message UpdateRoomJoinUserRequest {
+message UpdateRoomUserRequest {
   int32 room_id = 1;
   int32 user_id = 2;
-  repeated int32 user_ids = 3 ;
+  repeated int32 user_ids = 3;
 }
 
-message UpdateRoomJoinUserResponse {
+message UpdateRoomUserResponse {
 }
 
 message ListRoomRequest {
@@ -92,7 +81,7 @@ message Room {
 
 message DeleteRoomRequest {
   int32 room_id = 1;
-  int32 user id = 2;
+  int32 user_id = 2;
 }
 
 message DeleteRoomResponse {
@@ -111,7 +100,7 @@ message UpdateUserResponse {
 }
 
 message ListUserRequest {
- repeated User users = 1;
+  repeated User users = 1;
 }
 
 message ListUserResponse {
@@ -124,8 +113,6 @@ message DeleteUserRequest {
 message DeleteUserResponse {
 }
 
-
-
 message CreateMessageRequest {
   int32 user_id = 1;
   int32 room_id = 2;
@@ -134,7 +121,6 @@ message CreateMessageRequest {
 
 message CreateMessageResponse {
 }
-
 
 message UpdateMessageRequest {
   int32 message_id = 1;
@@ -149,9 +135,8 @@ message ListMessageRequest {
   int32 room_id = 1;
 }
 
-
 message ListMessageResponse {
- repeated Message messages = 1;
+  repeated Message messages = 1;
 }
 
 message Message {
