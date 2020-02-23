@@ -31,7 +31,10 @@ jobs:
 
       - run:
           name: bundle install
-          command: bundle check || bundle install
+          command: |
+            cd backend/
+            bundle check
+            bundle install
 
       - save_cache:
           key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
@@ -42,9 +45,11 @@ jobs:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
-      # - run:
-      #     name: Database setup
-      #     command: bin/rails db:schema:load --trace
+      - run:
+          name: Database setup
+          command: |
+            cd backend/
+            bin/rails db:schema:load --trace
 
       # - run:
       #     name: Run rspec in parallel
@@ -70,7 +75,10 @@ jobs:
 
       - run:
           name: bundle install
-          command: bundle check || bundle install
+          command: |
+            cd backend/
+            bundle check
+            bundle install
 
       - save_cache:
           key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
@@ -78,7 +86,9 @@ jobs:
             - vendor/bundle
       - run:
           name: Rubocop
-          command: bundle exec rubocop
+          command: |
+            cd backend/
+            bundle exec rubocop
 
   proto-lint:
     docker:

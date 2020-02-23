@@ -2,7 +2,9 @@ version: "3"
 
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
       - "3000:3000"
     environment:
@@ -12,7 +14,7 @@ services:
       - "DATABASE_PASSWORD=password"
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
-      - .:/myapp
+      - ./backend:/myapp
       - bundle:/usr/local/bundle
     depends_on:
       - db

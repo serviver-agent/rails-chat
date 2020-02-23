@@ -8,17 +8,17 @@
 /.bundle
 
 # Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
+/backend/log/*
+/backend/tmp/*
+/backend/log/.keep
+/backend/tmp/.keep
 
 # Ignore uploaded files in development.
-/storage/*
-!/storage/.keep
+/backend/storage/*
+/backend/storage/.keep
 
-/public/assets
-.byebug_history
+/backend/public/assets
+/backend/byebug_history
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
