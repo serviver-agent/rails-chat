@@ -19,9 +19,25 @@ jobs:
           POSTGRES_PASSWORD: "password"
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - docker-compose-v1-{{ checksum "~/docker-compose" }}
+            - docker-compose-v1
 
       - run:
-          name: Bundler を指定
+         name: Install Docker Compose
+         command: |
+           curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+           chmod +x ~/docker-compose
+           sudo mv ~/docker-compose /usr/local/bin/docker-compose
+
+      - save_cache:
+          key: docker-compose-v1-{{ checksum "~/docker-compose" }}
+          paths:
+            - ~/docker-compose
+
+      - run:
+          name: Select Bundler
           command: bundle -v
 
       - restore_cache:
@@ -32,9 +48,7 @@ jobs:
       - run:
           name: bundle install
           command: |
-            cd backend/
-            bundle check
-            bundle install
+            sudo docker-compose run web bundle install
 
       - save_cache:
           key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
@@ -48,8 +62,7 @@ jobs:
       - run:
           name: Database setup
           command: |
-            cd backend/
-            bin/rails db:schema:load --trace
+            sudo docker-compose run web bin/rails db:schema:load --trace
 
       # - run:
       #     name: Run rspec in parallel
@@ -68,6 +81,25 @@ jobs:
       - image: circleci/ruby:2.7.0
     steps:
       - checkout
+      - setup_remote_docker
+
+      - restore_cache:
+          keys:
+            - docker-compose-v1-{{ checksum "~/docker-compose" }}
+            - docker-compose-v1
+
+      - run:
+         name: Install Docker Compose
+         command: |
+           curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+           chmod +x ~/docker-compose
+           sudo mv ~/docker-compose /usr/local/bin/docker-compose
+
+      - save_cache:
+          key: docker-compose-v1-{{ checksum "~/docker-compose" }}
+          paths:
+            - ~/docker-compose
+
       - restore_cache:
           keys:
             - rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
@@ -76,9 +108,7 @@ jobs:
       - run:
           name: bundle install
           command: |
-            cd backend/
-            bundle check
-            bundle install
+            sudo docker-compose run web bundle install
 
       - save_cache:
           key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
@@ -87,8 +117,7 @@ jobs:
       - run:
           name: Rubocop
           command: |
-            cd backend/
-            bundle exec rubocop
+            sudo docker-compose run web bundle exec rubocop
 
   proto-lint:
     docker:
