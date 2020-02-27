@@ -27,8 +27,8 @@
   },
   "scripts": {
     "vue": "./node_modules/.bin/vue",
-    "serve": "parcel src/index.html",
-    "build": "parcel build src/index.html",
+    "serve": "yarn gen && parcel src/index.html",
+    "build": "yarn gen && parcel build src/index.html",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "gen": "sh generate.sh"
