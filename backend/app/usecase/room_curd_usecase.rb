@@ -26,7 +26,7 @@ class RoomCurdUsecase
 
     delete_user_set.each { |delete_user_id|
       RoomUsers.where(room_id: room_id, user_id: delete_user_id).delete
-    RoomUsers
+    }
 
     insert_user_set.each { |insert_user_id|
       new_rooms_users_models << RoomsUsers.new(room_id, insert_user_id)
@@ -44,4 +44,3 @@ class RoomCurdUsecase
     room.delete
   end
 end
-
