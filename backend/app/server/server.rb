@@ -1,9 +1,10 @@
-require 'grpc'
-require '/.lib/router_services_pb.rb'
+# frozen_string_literal: true
+
+require "grpc"
+require "/.lib/router_services_pb.rb"
 
 
 class ServerImpl < Serviveragent::Serviveragent::Railschat::Com::Protobuf::Proto::RoomService::Service
-
   # これはRoomServiceのControllerしか定義していない
   # 実際は RoomService, UserService, MessageServieを作りその中で実装
   # そのクラスをServerImplでインスタンス化するべき
@@ -27,5 +28,4 @@ class ServerImpl < Serviveragent::Serviveragent::Railschat::Com::Protobuf::Proto
   def delete_room(delete_room_request, _call)
     DeleteRoomResponse
   end
-
 end

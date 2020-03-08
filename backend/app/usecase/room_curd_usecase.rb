@@ -44,3 +44,4 @@ class RoomCurdUsecase
     room.delete
   end
 end
+

@@ -6,13 +6,15 @@ require "./dto/message_dto.rb"
 
 class MessageService <
   Serviveragent::Serviveragent::Railschat::Com::Protobuf::Proto::MessageService::Service
-  message_usecase = MessageCurdUseCase.new()
+  def initialize
+    @message_usecase = MessageCurdUseCase.new()
+  end
 
   def create(create_message_request, _call)
     user_id = create_message_request.user_id
     room_id = create_message_request.room_id
     message = create_message_request.message
-    message_usecase.create(room_id, user_id, message)
+    @message_usecase.create(room_id, user_id, message)
 
     CreateMessageResponse.new()
   end
@@ -22,13 +24,13 @@ class MessageService <
     # user_id = create_message_request.user_id
     message_id = create_message_request.message_id
     message = create_message_request.message
-    message_usecase.update(message_id, message)
-    
+    @message_usecase.update(message_id, message)
+
     UpdateMessageResponse.new()
   end
 
   def list(list_message_request, _call)
-    message_list = message_usecase.list
+    message_list = @message_usecase.list
     messages = message_list.map { |message|
       Message.new(message.id, message.user_id, message.message)
     }
@@ -40,7 +42,7 @@ class MessageService <
     # バリデーションは後で追加
     # user_id = delete_message_request.user_id
     message_id = delete_message_request.message_id
-    message_usecase.delete(message_id)
+    @message_usecase.delete(message_id)
 
     DeleteMessageResponse.new()
   end
