@@ -12,8 +12,8 @@ class MessageCurdUsecase
     message.update(message: message)
   end
 
-  def list
-    message = Message.all
+  def list(room_id)
+    message = Message.find(room_id: room_id)
     message
   end
 
