@@ -6,11 +6,13 @@ require "./modules/rooms_users.rb"
 class RoomCurdUsecase
   def create(name, user_id)
     room = Room.create()
+    room.select("id")
   end
 
   def updateRoom(room_id, name)
     room = Room.find_by(id: room_id)
     room.update(name: name)
+    room.select("id")
   end
 
   def updateUser(room_id, users)
