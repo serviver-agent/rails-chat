@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require "./lib/router_services_pb.rb"
-require "./usecase/message_curd_usecase.rb"
-require "./dto/message_dto.rb"
+require "./app/usecase/message_curd_usecase.rb"
+require "./app/dto/message_dto.rb"
 
 class MessageService <
   Serviveragent::Serviveragent::Railschat::Com::Protobuf::Proto::MessageService::Service
