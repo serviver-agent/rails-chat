@@ -14,9 +14,7 @@ services:
       - "DATABASE_PASSWORD=password"
       - "RUBYLIB=./lib"
     command: |
-      bash -c "grpc_tools_ruby_protoc -I ../protobuf --ruby_out=./lib --grpc_out=./lib ../protobuf/router.proto && \
-      echo generate grpc_ruby_protoc  && \
-      bundle exec ruby ./app/server/server.rb"
+      bundle exec ruby ./app/server/server.rb
     volumes:
       - ./backend:/myapp
       - bundle:/usr/local/bundle
