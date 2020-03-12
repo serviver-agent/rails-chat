@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "./lib/router_services_pb.rb"
+require "router_services_pb"
 require "./usecase/room_curd_usecase.rb"
 require ".dto/room_dto.rb"
 

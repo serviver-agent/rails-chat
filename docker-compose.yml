@@ -12,8 +12,11 @@ services:
       - "DATABASE_PORT=5432"
       - "DATABASE_USER=postgres"
       - "DATABASE_PASSWORD=password"
+      - "RUBYLIB=./lib"
     command: |
-      bash -c "bundle exec ruby ./app/server/server.rb"
+      bash -c "grpc_tools_ruby_protoc -I ../protobuf --ruby_out=./lib --grpc_out=./lib ../protobuf/router.proto && \
+      echo generate grpc_ruby_protoc  && \
+      bundle exec ruby ./app/server/server.rb"
     volumes:
       - ./backend:/myapp
       - bundle:/usr/local/bundle
