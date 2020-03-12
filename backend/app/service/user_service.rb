@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 require "router_services_pb"
-require "./usecase/user_curd_usecase.rb"
-require "./dto/user_dto.rb"
+require "./app/usecase/user_curd_usecase.rb"
+require "./app/dto/user_dto.rb"
 
-class UserService <
-    Serviveragent::Serviveragent::Railschat::Com::Protobuf::Proto::UserService::Service
+class UserService < Serviveragent::Railschat::Com::Protobuf::Proto::UserService::Service
   def initialize
-    @user_usecase = UserCurdUseCase.new()
+    @user_usecase = UserCurdUsecase.new()
   end
 
   def update(update_user_request, _call)

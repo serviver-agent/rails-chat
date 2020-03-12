@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "./modules/user.rb"
+require "./app/models/user.rb"
 
 class UserCurdUsecase
   # def create end

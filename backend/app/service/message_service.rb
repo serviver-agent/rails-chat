@@ -5,9 +5,9 @@ require "./app/usecase/message_curd_usecase.rb"
 require "./app/dto/message_dto.rb"
 
 class MessageService <
-  Serviveragent::Serviveragent::Railschat::Com::Protobuf::Proto::MessageService::Service
+  Serviveragent::Railschat::Com::Protobuf::Proto::MessageService::Service
   def initialize
-    @message_usecase = MessageCurdUseCase.new()
+    @message_usecase = MessageCurdUsecase.new
   end
 
   def create(create_message_request, _call)

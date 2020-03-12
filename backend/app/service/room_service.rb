@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require "router_services_pb"
-require "./usecase/room_curd_usecase.rb"
-require ".dto/room_dto.rb"
+require "./app/usecase/room_curd_usecase.rb"
+require "./app/dto/room_dto.rb"
 
-class  RoomService < Serviveragent::Serviveragent::Railschat::Com::Protobuf::Proto::RoomService::Service
+class  RoomService < Serviveragent::Railschat::Com::Protobuf::Proto::RoomService::Service
   def initialize
     # クラスインスタンスで注入できるようにする？
-    @room_usecase = RoomCurdUseCase.new()
+    @room_usecase = RoomCurdUsecase.new()
   end
 
 

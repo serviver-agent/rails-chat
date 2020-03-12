@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "./modules/room.rb"
-require "./modules/rooms_users.rb"
+require "./app/models/room.rb"
+require "./app/models/rooms_users.rb"
 
 class RoomCurdUsecase
   def create(name, user_id)

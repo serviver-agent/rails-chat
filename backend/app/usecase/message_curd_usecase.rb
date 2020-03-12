@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "./modules/message.rb"
+require "./app/models/message.rb"
 
 class MessageCurdUsecase
   def create(room_id, user_id, message)
