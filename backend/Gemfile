@@ -27,7 +27,12 @@ gem "jbuilder", "~> 2.7"
 
 # Use grpc
 gem "grpc-tools", "~> 1.27"
-# gem 'grpc-tools', '~> 1.27'
+gem "grpc", "~> 1.28.0.pre2"
+# Use pb
+gem "google-protobuf", "~> 3.11", ">= 3.11.4"
+
+# User bulk insert
+gem "activerecord-import", "~> 1.0", ">= 1.0.4"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
